@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- TOP Desitination over last 3 months -->
+    <h1 style = 'text-align:center'> Top Destinations </h1>
+    <div style = 'text-align:center'>
+
+        <span> 3 Most Popular Destinations Over Last 3 Months:</span><br>
+		<style type="text/css">
+			table, th, td{
+				border: 1px solid rgb(0, 0, 0);
+			}
+		</style>
+
+		<div class = "mytest">
+		<table class="table" border="1" align="center">
+			<th>City</th>
+			<th>Number of Sessions</th>
+		{% for line in rank_90[:3] %}
+			<tr>
+				<td>{{line[0]}}</td>
+				<td>{{line[1]}}</td>
+			</tr>
+		{% endfor %}
+        </table>
+        </div>
+
+        <br><br><br><br>
+
+<!-- TOP SALES FROM LAST 365 DAYS -->
+
+    <span> 3 Most Popular Destinations Over Last 365 Days:</span><br>
+    <style type="text/css">
+        table, th, td{
+            border: 1px solid rgb(0, 0, 0);
+        }
+    </style>
+
+    <div class = "mytest">
+    <table class="table" border="1" align="center">
+        <th>City</th>
+        <th>Number of Sessions</th>
+    {% for line in rank_365[:3] %}
+        <tr>
+            <td>{{line[0]}}</td>
+            <td>{{line[1]}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    </div>
+
+        <br><br><br><br>
+        {% if usertype == "customer" %}
+        <a href="/home_c">back to homepage</a>
+        {% endif %}
+
+        {% if usertype == "booking_agent" %}
+        <a href="/home_b">back to homepage</a>
+        {% endif %}
+
+        {% if usertype == "staff" %}
+        <a href="/home_s">back to homepage</a>
+        {% endif %}
+
+    <p></p>
+
+</div>
+
+</body>
+
+
+</html>

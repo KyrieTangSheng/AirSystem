@@ -1,0 +1,187 @@
+<html>
+    <head>
+        
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            /* css */
+			#datatable {
+				border: 1px solid #ccc;
+				border-collapse: collapse;
+				border-spacing: 0;
+				font-size: 12px;
+			}
+			td,th {
+				border: 1px solid #ccc;
+				padding: 4px 20px;
+			}
+        </style>
+        <script src="https://code.highcharts.com.cn/highcharts/highcharts.js"></script>
+        <script src="https://code.highcharts.com.cn/highcharts/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com.cn/highcharts/modules/data.js"></script>
+        <script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+
+    </head>
+    <body>
+<div style = 'text-align:center'>
+        <h3>View Top Customers</h3>
+        <br><br>
+        <p>Top 5 Customers based on ticket past 6 months</p>
+        <style type="text/css">
+            table, th, td{
+                border: 1px solid black;
+            }
+        </style>
+
+        <table class="table" border="1" align="center">
+            <th>customer email</th>
+            <th>customer name</th>
+            <th>number of ticket</th>
+        {% for line in customer %}
+            <tr>
+                <td>{{line[0]}}</td>
+                <td>{{line[1]}}</td>
+                <td>{{line[2]}}</td>
+            </tr>
+        {% endfor %}
+        </table>
+        <br>
+        <br>
+
+        
+        <p>Top 5 Customers Based on Commissions Last Year</p>
+
+        <style type="text/css">
+            table, th, td{
+                border: 1px solid black;
+            }
+        </style>
+
+        <table class="table" border="1" align="center">
+            <th>customer email</th>
+            <th>customer name</th>
+            <th>commission</th>
+        {% for line in customer_y %}
+            <tr>
+                <td>{{line[0]}}</td>
+                <td>{{line[1]}}</td>
+                <td>{{line[2]}}</td>
+            </tr>
+        {% endfor %}
+        </table>
+        <br>
+        <br>
+
+        <!-- Draw diagram -->
+            <!-- Top Customers based on ticket past 6 months-->
+        <div id="month" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+        <table id = "datatable1" style="display:none">
+            <thead>
+                <th>customer name</th>
+                <th>number of ticket</th>
+            </thead>
+        {% for line in customer %}
+            <tr>
+                <td>{{line[1]}}</td>
+                <td>{{line[2]}}</td>
+            </tr>
+        {% endfor %}
+        </table>
+
+        <script>
+            // Javascript 
+            var chart = Highcharts.chart('month', {
+                data: {
+                    table: 'datatable1'
+                },
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Top 5 Customers Based on Ticket Sold in Past 6 Months'
+                    // data.js, https://www.hcharts.cn/docs/data-modules
+                },
+                yAxis: {
+                    allowDecimals: false,
+                    title: {
+                        text: 'number of ticket',
+                        rotation: 0
+                    }
+                },
+                legend: {
+					enabled: true
+				},
+				plotOptions: {
+					series: {
+						borderWidth: 0,
+						dataLabels: {
+							enabled: true,
+							// format: '{point.y:.1f}%'
+						},
+						enableMouseTracking: true,
+					}
+				},
+            });
+        </script>
+
+            <!-- Top Customers Based on Commissions Last Year -->
+        <div id="year" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+		<table id = "datatable2" style="display:none">
+            <thead>
+                <th>customer name</th>
+                <th>commission</th>
+            </thead>
+        {% for line in customer_y %}
+            <tr>
+                <td>{{line[1]}}</td>
+                <td>{{line[2]}}</td>
+            </tr>
+        {% endfor %}
+        </table>
+
+        <script>
+            // Javascript 
+			var chart = Highcharts.chart('year', {
+				data: {
+					table: 'datatable2'
+				},
+				chart: {
+					type: 'column'
+				},
+				title: {
+					text: 'Top 5 Customers Based on Commissions Last Year'
+					// data.js, https://www.hcharts.cn/docs/data-modules
+				},
+				yAxis: {
+					allowDecimals: false,
+					title: {
+						text: 'commission',
+						rotation: 0
+					}
+				},
+                legend: {
+					enabled: true
+				},
+				plotOptions: {
+					series: {
+						borderWidth: 0,
+						dataLabels: {
+							enabled: true,
+							// format: '{point.y:.1f}%'
+						},
+						enableMouseTracking: true,
+					}
+				},
+			});
+        </script>
+        <br>
+        <br>
+        <a href="/home_b">Back to Homepage</a>
+        
+
+       </div>
+    </body>
+</html>

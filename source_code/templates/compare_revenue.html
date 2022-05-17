@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var x = parseInt('{{dir_30}}')
+        var y = parseInt('{{indir_30}}')
+        var a = parseInt('{{dir_365}}')
+        var b = parseInt('{{indir_365}}')
+        console.log(x+y)
+        var data1 = google.visualization.arrayToDataTable([
+          ['Type', 'Amount', 'Proportion'],
+          ['Indirect', y,y/(x+y) ],
+          ['Direct',x,x/(x+y)    ],
+        ]);
+        var data2 = google.visualization.arrayToDataTable([
+          ['Type', 'Amount', 'Proportion'],
+          ['Indirect', b,b/(a+b) ],
+          ['Direct',a,a/(a+b) ],
+        ]);
+
+        var options1 = {
+          title: 'Comparisons of Direct/Indirect Revenue over Last 30 Days'
+        };
+        var options2 = {
+          title: 'Comparisons of Direct/Indirect Revenue over Last 365 Days'
+        };
+
+        var chart1 = new google.visualization.PieChart(document.getElementById('piechart1'));
+        var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
+
+        chart1.draw(data1, options2);
+        chart2.draw(data2, options2);
+      }
+    </script>
+</head>
+<body>
+
+<!-- TOP Desitination over last 3 months -->
+    <h1 style = 'text-align:center'> Revenue Comparisons </h1>
+    <div style = 'text-align:center '>
+
+
+        <div style = 'display:inline ; align-items: center;'>
+            <div id="piechart1" style="width: 600px; height: 300px; "></div>
+            <div id="piechart2" style="width: 600px; height: 300px; "></div>
+        </div>
+
+
+        <br><br><br><br>
+        {% if usertype == "customer" %}
+        <a href="/home_c">back to homepage</a>
+        {% endif %}
+
+        {% if usertype == "booking_agent" %}
+        <a href="/home_b">back to homepage</a>
+        {% endif %}
+
+        {% if usertype == "staff" %}
+        <a href="/home_s">back to homepage</a>
+        {% endif %}
+
+    <p></p>
+
+</div>
+
+</body>
+
+
+</html>

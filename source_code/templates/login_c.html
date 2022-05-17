@@ -1,0 +1,28 @@
+<html>
+<head>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1 style = 'text-align:center'> AirSystem by Kyrie & Flora </h1>
+	<h3 style = 'text-align: center;'>Please Login, Customer</h3>
+
+    <div style = 'text-align: center;'>
+		<form action="/loginAuth" method="POST">
+			<input type="hidden" name="usertype" value = "customer">
+			<input type="text" name = "username" placeholder="email" required/> </br>
+			<input type="password" name = "password" placeholder="password" required/></br>
+			<input type="submit" value = Login />
+			{% if error %}
+				<p class="error"><strong>Error:</strong> {{error}}</p>
+			{% endif %}
+		</form>
+        <a href="/" >Go back</a>
+	</div>
+
+
+
+</body>
+
+
+</html>
+

@@ -1,0 +1,22 @@
+<html>
+<head>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1 style = 'text-align:center'> AirSystem by Kyrie & Flora </h1>
+    <h3 style = 'text-align:center'> Registering as a Booking Agent </h3>
+    <div style = "text-align: center;">
+        <form action="/registerAuth" method="POST">
+            <input type = "hidden" name = "usertype" value = "booking_agent"/> </br>
+            <input type="text" name = "username" placeholder="email" required/> </br>
+            <input type="password" name = "password" placeholder="password" required/></br>
+            <input type="text" name = "booking_agent_id" placeholder="booking agent id" required/></br>
+            <input type="submit" value = Register />
+            {% if error %}
+                <p class="error"><strong>Error:</strong> {{error}}</p>
+            {% endif %}
+        </form>
+        <a href="/">Go back</a>
+    </div>
+</body>
+</html>

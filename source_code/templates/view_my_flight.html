@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <h1 style = 'text-align:center'> View My Flight </h1>
+    <div style = 'text-align:center'>
+    <form action="/view_my_flight_specific", method="POST">
+
+			You can specify information here if you would like to search more specifically: <br>
+            <input type="text" name = "d_name" placeholder = "departure city"> <br>
+            <input type="text" name = "a_name" placeholder = "arrival city"> <br>
+			 <br>
+            start date <input type="date" name="start" placeholder="start date"><br>
+			end date <input type="date" name="end" placeholder="end date"><br>
+            (If you enter one of start date and end date, please also enter the other one.)<br><br>
+			<input type="submit" value = Search>
+
+
+		</form>
+        <br><br>
+		<p>{{message}}</p>
+
+        <br><br>
+        <span> Your upcoming flights are as follows:</span><br>
+		<style type="text/css">
+			table, th, td{
+				border: 1px solid rgb(0, 0, 0);
+			}
+		</style>
+
+		<div class = "mytest">
+		<table class="table" border="1" float="top" align="center">
+			<th>airline name</th>
+			<th>flight number</th>
+			<th>departure airport</th>
+			<th>departure time</th>
+			<th>arrival airport</th>
+			<th>arrival time</th>
+			<th>price</th>
+			<th>status</th>
+			<th>airplane ID</th>
+		{% for line in flight_info %}
+			<tr>
+				<td>{{line[0]}}</td>
+				<td>{{line[1]}}</td>
+				<td>{{line[2]}}</td>
+				<td>{{line[3]}}</td>
+				<td>{{line[4]}}</td>
+				<td>{{line[5]}}</td>
+				<td>{{line[6]}}</td>
+				<td>{{line[7]}}</td>
+				<td>{{line[8]}}</td>
+                {% if usertype == "staff" %}
+                <td>
+           			 <form action="/all_customers" method = "POST">
+						<input type="hidden" name = "airline_name" value = "{{line[0]}}">
+						<input type="hidden" name = "flight_num" value = "{{line[1]}}">
+						<button type="submit">view customers in this flight</button> <br>
+					</form>
+                </td>
+            	{% endif %}
+
+				{% if usertype == "customer" %}
+				<td>
+					<form action="/cancel_flight" method = "POST">
+						<input type="hidden" name = "airline_name" value = "{{line[0]}}">
+						<input type="hidden" name = "flight_num" value = "{{line[1]}}">
+						<button type = "submit">Cancel and Get Refund</button> <br>
+ 					</form>
+				</td>
+				{% endif %}
+
+			</tr>
+
+		{% endfor %}
+
+
+        <br><br>
+        <div float="bottom">
+        {% if usertype == "customer" %}
+        <a href="/home_c">back to homepage</a>
+        {% endif %}
+
+        {% if usertype == "booking_agent" %}
+        <a href="/home_b">back to homepage</a>
+        {% endif %}
+
+        {% if usertype == "staff" %}
+        <a href="/home_s">back to homepage</a>
+        {% endif %}
+        </div>
+
+    <p></p>
+
+</div>
+
+</body>
+
+
+</html>

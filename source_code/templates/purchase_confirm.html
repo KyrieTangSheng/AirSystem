@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <div style = 'text-align:center'>
+        <h1>Comfirm Your Purchase Information</h1>
+        <p>airline name: {{airline_name}}</p>
+        <p>flight num: {{flight_num}}</p>
+        <br>
+        {% if usertype == "customer" %}
+        <form action="/confirm", method = "POST">
+            <input type="submit" value = Confirm>
+        </form>
+        <p>{{message}}</p>
+        <br>
+        <a href="/purchase" onClick = "javascript:history.back(-1);">I would like to choose another flight</a> <br> <br> <br>
+
+
+        <a href="/home_c">Return to your homepage</a>
+        {% endif %}
+
+        {% if usertype == "booking_agent" %}
+        <form action="/confirm", method = "POST">
+            <input type="text" name = "customer_email" placeholder="customer email" required> <br>
+            <input type="submit" value = Confirm> <br>
+        </form>
+        <p>{{message}}</p>
+        <br>
+        <a href="/purchase" onClick = "javascript:history.back(-1);">I would like to choose another flight</a> <br> <br> <br>
+
+
+        <a href="/home_b">Return to your homepage</a>
+        {% endif %}
+</div>
+    </body> 
+</html>
+

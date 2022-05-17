@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <div style = 'text-align:center'>
+        <br><br>
+        <h2>View public information</h2>
+        <br>
+        <h4>You can search for upcoming flights here:</h4>
+
+        <form action="/search_flights", method = "POST">
+            <input type="hidden" name = "usertype" value = "public">
+            <input type="radio" name = "city_or_airport" value = "city" required>city
+            <input type="radio" name = "city_or_airport" value = "airport" required>airport <br>
+            <input type="text" name = "departure" placeholder = "departure city / airport" required> <br>
+            <input type="text" name = "arrival" placeholder = "arrival city / airport" required> <br>
+            <span>Departure date: </span><input type="date" name="date" placeholder="date" required> <br>
+            <input type="submit" value = Search />
+
+
+            {% if error %}
+            <p class="error"><strong>Error:</strong>{{error}}</p>
+            {% endif %}
+
+
+        </form>
+
+        
+        <p>{{message}}</p>
+
+        
+
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <h4>You may also search for flight status here: </h4>
+
+        <form action="/find_status", method = "POST">
+            <input type="radio" name = "dep_or_arr" value = "dep" required/>departure date <br>
+            <input type="radio" name = "dep_or_arr" value = "arr" required/>arrival date <br>
+            <input type="text" name = "flight_num" placeholder="flight number" required/> <br>
+            <span>Departure/arrival date: </span><input type="date" name = "date" placeholder="departure / arrival time" required/> <br>
+            <input type="submit" value = Search /> 
+
+            
+            {% if error %}
+            <p class="error"><strong>Error:</strong> {{error}}</p>
+            {% endif %}
+
+
+        </form>
+
+        <p>{{message}}</p>
+
+        
+
+    <br>
+    <br>
+
+
+
+        {% if usertype == "public" %}
+        <a href="/">Go back</a>
+        {% endif %}
+
+        {% if usertype == "customer" %}
+        <a href="/home_c">back to homepage</a>
+        {% endif %}
+
+        {% if usertype == "booking_agent" %}
+        <a href="/home_b">back to homepage</a>
+        {% endif %}
+
+        {% if usertype == "staff" %}
+        <a href="/home_s">back to homepage</a>
+        {% endif %}
+    </div>
+    </body>
+
+</html>
+

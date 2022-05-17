@@ -1,0 +1,26 @@
+<html>
+<head>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1 style = 'text-align:center'> AirSystem by Kyrie & Flora </h1>
+    <h3 style = 'text-align:center'> Registering as a Airline Staff </h3>
+    <div style = "text-align: center;">
+        <form action="/registerAuth" method="POST">
+            <input type = "hidden" name = "usertype" value = "staff"/> </br>
+            <input type="text" name = "username" placeholder="username" required/> </br>
+            <input type="password" name = "password" placeholder="password" required/></br>
+            <input type="text" name = "first_name" placeholder="first name" required/> </br>
+            <input type="text" name = "last_name" placeholder="last name" required/> </br>
+            <input type="text" name = "airline_name" placeholder="airline name" required/> </br>
+            <p>Date of Birth<input type="date" name = "date_of_birth" placeholder="date of birth" required/></p> </br>
+            <input type="submit" value = Register />
+            {% if error %}
+                <p class="error"><strong>Error:</strong> {{error}}</p>
+            {% endif %}
+        </form>
+        <a href="/">Go back</a>
+    </div>
+</body>
+</html>
+

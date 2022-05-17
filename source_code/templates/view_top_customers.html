@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- TOP SALES FROM LAST 30 DAYS -->
+    <h1 style = 'text-align:center'> View My Top Customers </h1>
+    <div style = 'text-align:center'>
+
+        <span> 5 Agents with Top Sales Last 30 Days:</span><br>
+		<style type="text/css">
+			table, th, td{
+				border: 1px solid rgb(0, 0, 0);
+			}
+		</style>
+
+		<div class = "mytest">
+		<table class="table" border="1" align="center">
+			<th>Email</th>
+			<th>Booking_Agent_ID</th>
+			<th>Number of Purchase</th>
+		{% for line in last_365_purchase[:10] %}
+			<tr>
+				<td>{{line[0]}}</td>
+				<td>{{line[1]}}</td>
+				<td>{{line[2]}}</td>
+			</tr>
+		{% endfor %}
+        </table>
+        </div>
+
+
+
+        <br><br><br><br>
+        {% if usertype == "customer" %}
+        <a href="/home_c">back to homepage</a>
+        {% endif %}
+
+        {% if usertype == "booking_agent" %}
+        <a href="/home_b">back to homepage</a>
+        {% endif %}
+
+        {% if usertype == "staff" %}
+        <a href="/home_s">back to homepage</a>
+        {% endif %}
+
+    <p></p>
+
+</div>
+
+</body>
+
+
+</html>

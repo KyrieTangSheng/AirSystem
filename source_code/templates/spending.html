@@ -1,0 +1,107 @@
+<html>
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            /* css */
+			#datatable {
+				border: 1px solid #ccc;
+				border-collapse: collapse;
+				border-spacing: 0;
+				font-size: 12px;
+			}
+			td,th {
+				border: 1px solid #ccc;
+				padding: 4px 20px;
+			}
+        </style>
+        <script src="https://code.highcharts.com.cn/highcharts/highcharts.js"></script>
+        <script src="https://code.highcharts.com.cn/highcharts/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com.cn/highcharts/modules/data.js"></script>
+        <script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+
+    </head>
+    <body>
+        <div style = 'text-align:center'>
+		<!-- Search Part-->
+		<h4>View My Spending</h4> <br>
+
+		<form action="/spend" method = "POST">
+			<input type="radio" name = "choice" value = default required> View my total spending last year and my month-wise spending for last 6 months. <br>
+			<input type="radio" name = "choice" value = specify required> View my spending in a specific range of date. <br>
+			<input type="date" name = "start"> start date <br>
+			<input type="date" name = "end"> end date <br>
+			<input type="submit" value = Track> <br>
+		</form>
+		<br>
+		<b>Your total spending is:</b> {{spending}}
+        <br>
+		<!-- Draw Part -->
+
+        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+		<table id = "datatable" class="table" border="1" align="center">
+			<thead>
+				<th>Month</th>
+				<th>Spending</th>
+			</thead>
+			<tbody>
+				{% for line in spent %}
+				<tr>
+					<td>{{line[1]}}</td>
+					<td>{{line[0]}}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+
+        <script>
+            // Javascript 
+			var chart = Highcharts.chart('container', {
+				data: {
+					table: 'datatable'
+				},
+				chart: {
+					type: 'column'
+				},
+				title: {
+					text: 'Month Wise Spending'
+					// data.js, https://www.hcharts.cn/docs/data-modules
+				},
+                xAxis: {
+					type: 'category'
+				},
+				yAxis: {
+					allowDecimals: false,
+					title: {
+						text: 'Money',
+						rotation: 0
+					}
+				},
+                legend: {
+					enabled: true
+				},
+				plotOptions: {
+					series: {
+						borderWidth: 0,
+						dataLabels: {
+							enabled: true,
+							// format: '{point.y:.1f}%'
+						},
+						enableMouseTracking: true,
+					}
+				},
+
+				tooltip: {
+					headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+					pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+				},
+			});
+        </script>
+		<br>
+		<br>
+		<a href="/home_c">Back to Homepage</a>
+        </div>
+    </body>
+</html>

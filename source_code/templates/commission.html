@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div style = 'text-align:center'>
+        <h3>View My Commission</h3>
+        <br><br>
+		<form action="view_commission", method = "POST">
+			<input type="radio" name = "choose" value = yes required> View commission for past 30 days. <br>
+			<input type="radio" name = "choose" value = no required> Specify a date range and view the corresponding commission. <br>
+			<input type="date" name="start"> start date <br>
+			<input type="date" name="end"> end date <br>
+			<input type="submit" value = View>
+
+		</form>
+        <br><br>
+		<b>Total Commission : </b> {{total_commission}}<br> <br>
+		<b>Average Commission per Ticket: </b> {{average_commission}} <br> <br>
+		<b>Total Tickets sold: </b> {{total_ticket}} <br> <br>
+		<br>
+		<br>
+		<br>
+        <a href="/home_b">Back to Homepage</a>
+</div>
+
+
+</body>
+
+
+</html>
+

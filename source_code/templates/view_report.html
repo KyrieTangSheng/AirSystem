@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/charts.min.css">
+</head>
+<body>
+
+<!-- TOP Desitination over last 3 months -->
+    <h1 style = 'text-align:center'> Sales Reports </h1>
+    <div style = 'text-align:center'>
+
+        {% if not specific %}
+        <h3>General Information</h3>
+        <span>{{sales_30}} Tickets Were Sold Over Last 30 Days</span><br>
+        <span>{{sales_365}} Tickets Were Sold Over Last 365 Days</span><br>
+
+        <br><br><br>
+
+		<table style="max-width:300px" class="charts-css bar show-4-secondary-axes show-data-on-hover show-labels show-heading">
+            <caption>Monthwise Stats Over the Last 12 Months:</caption>
+            <tbody>
+
+            {% for i in range(12) %}
+            <tr>
+    			<th>{{yms[i][:-2]}}</th>
+				<td style="--size:calc({{monthwise_stats[i]}}/{{total}});"><span class="data">{{monthwise_stats[i]}}</span></td>
+            </tr>
+                {% endfor %}
+
+
+        </tbody>
+        </table>
+        {% endif %}
+
+        <h3>You can search for the amount of sales between specific dates</h3>
+        <form action="/view_specific_report", method = "POST">
+            <span>Start Date: </span><input type="date" name="start_date" placeholder="date" required> <br>
+            <span>End Date: </span><input type="date" name="end_date" placeholder="date" required> <br>
+            <input type="submit" value = Search />
+        </form>
+        <br>
+
+        {% if specific %}
+        <span> The Number of Tickets Sold between {{start_date}} and {{end_date}} is {{number}}</span>
+        {% endif %}
+
+
+
+        <br><br><br><br>
+        {% if usertype == "customer" %}
+        <a href="/home_c">back to homepage</a>
+        {% endif %}
+
+        {% if usertype == "booking_agent" %}
+        <a href="/home_b">back to homepage</a>
+        {% endif %}
+
+        {% if usertype == "staff" %}
+        <a href="/home_s">back to homepage</a>
+        {% endif %}
+
+    <p></p>
+
+</div>
+
+</body>
+
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div style = 'text-align:center'>
+    <h1 style = 'text-align:center'> Create New Flight </h1>
+
+        <span>{{message}}</span><br>
+        {% if permission == 1 %}
+        <span>Now, To Create A New Flight: </span>
+        <form action="/create_flight" method = "POST">
+            <input type="hidden" name = "airline_name" value = "{{airline_name}}"><br>
+            <input type="text" name = "flight_num" placeholder="Flight Number"><br>
+            <input type="text" name = "departure_airport" placeholder="Departure Airport"><br>
+            Departure Time (yyyy-mm-dd hh:mm:ss) <input type="datetime" name="dep_time" placeholder="departure time"><br>
+            <input type="text" name = "arrival_airport" placeholder="Arrival Airport"><br>
+			Arrival Time (yyyy-mm-dd hh:mm:ss) <input type="datetime" name="arr_time" placeholder="arrival time"><br>
+            <input type="number" name = "price" placeholder="Price"><br>
+            <input type="hidden" name = "status" value = "upcoming"><br>
+            <input type="text" name = "airplane_id" placeholder="Airplane ID"><br>
+            <button type="submit">Create</button> <br>
+        </form>
+        {% endif %}
+
+        {% if permission == 0 %}
+        <span>Sorry, you have no permission to create new flight. </span>
+        {% endif %}
+
+
+        <br><br><br><br>
+
+        <div style = 'text-align:center'>
+            <span> Your upcoming flights are as follows:</span><br>
+            <style type="text/css">
+                table, th, td{
+                    border: 1px solid rgb(0, 0, 0);
+                }
+            </style>
+            <div class = "mytest">
+            <table class="table" border="1" align="center">
+                <th>airline name</th>
+                <th>flight number</th>
+                <th>departure airport</th>
+                <th>departure time</th>
+                <th>arrival airport</th>
+                <th>arrival time</th>
+                <th>price</th>
+                <th>status</th>
+                <th>airplane ID</th>
+            {% for line in flight_info %}
+                <tr>
+                    <td>{{line[0]}}</td>
+                    <td>{{line[1]}}</td>
+                    <td>{{line[2]}}</td>
+                    <td>{{line[3]}}</td>
+                    <td>{{line[4]}}</td>
+                    <td>{{line[5]}}</td>
+                    <td>{{line[6]}}</td>
+                    <td>{{line[7]}}</td>
+                    <td>{{line[8]}}</td>
+                    {% if usertype == "staff" %}
+                    <td>
+                <form action="/all_customers" method = "POST">
+                    <input type="hidden" name = "airline_name" value = "{{line[0]}}">
+                    <input type="hidden" name = "flight_num" value = "{{line[1]}}">
+                    <button type="submit">view customers in this flight</button> <br>
+                </form>
+                    </td>
+                {% endif %}
+                </tr>
+
+            {% endfor %}
+        </table>
+        </div>
+    </div>
+            <br><br><br><br>
+
+        {% if usertype == "customer" %}
+        <a href="/home_c">back to homepage</a>
+        {% endif %}
+
+        {% if usertype == "booking_agent" %}
+        <a href="/home_b">back to homepage</a>
+        {% endif %}
+
+        {% if usertype == "staff" %}
+        <a href="/home_s">back to homepage</a>
+        {% endif %}
+
+    <p></p>
+
+
+</div>
+
+</body>
+
+
+</html>

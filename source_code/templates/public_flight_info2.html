@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+	<div class="typo">
+		<div class="container" style = 'text-align:center'>
+            <br>
+			<h3>Flight Information </h3>
+            <br><br>
+			<div>
+				<div>
+					<table class="table" border="1" align="center">
+						<thead>
+							<tr>
+								<th>Airline name</th>
+								<th>Flight number</th>
+								<th>Status</th>
+								
+							</tr>
+						</thead>
+						<tbody>
+							{% for row in rows %}
+							<tr>
+								<td>{{row[0]}}</td>
+								<td>{{row[1]}}</td>
+								<td>{{row[2]}}</td>
+								
+								
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+                    <br><br><br><br>
+        {% if usertype == "public" %}
+        <a href="/">Go back</a>
+        {% endif %}
+
+        {% if usertype == "customer" %}
+        <a href="/home_c">back to homepage</a>
+        {% endif %}
+
+        {% if usertype == "booking_agent" %}
+        <a href="/home_b">back to homepage</a>
+        {% endif %}
+
+        {% if usertype == "staff" %}
+        <a href="/home_s">back to homepage</a>
+        {% endif %}
+			</div>
+		</div>
+	</div>
+

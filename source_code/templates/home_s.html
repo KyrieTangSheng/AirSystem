@@ -1,0 +1,249 @@
+<html>
+	<head>
+        <link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+        <div style = 'text-align:center'>
+		<h1>Welcome {{username}} from {{company}} Airline!</h1>
+		{% if Admin and Operator %}
+		<h3> You have Admin and Operator permission. </h3>
+		{% endif %}
+		{% if Admin and not Operator %}
+		<h3> You only have Admin permission. </h3>
+		{% endif %}
+		{% if (not Admin) and Operator %}
+		<h3> You only have Operator permission. </h3>
+		{% endif %}
+		{% if (not Admin) and (not Operator) %}
+		<h3> You have neither Admin nor Operator permission. </h3>
+		{% endif %}
+
+
+
+<!-- Request Admin/Operator Permission -->
+		<span>-You can request Admin permission </span><a href="/get_admin">here.</a><br>
+		<span>-You can request Operator permission </span><a href="/get_operator">here.</a><br>
+
+<br><br>
+
+
+
+
+<!-- View Public Information -->
+		<span>-You can view public information </span><a href="/public_info">here.</a>
+		<br><br>
+
+<!-- View My Flight -->
+        <span>-View my flight </span><a href="/view_my_flight">here.</a>
+		<br><br>
+<!-- View Customers of a Certain Flight -->
+		<span>-View Customers of a Certain Flight </span>
+		<form action="/all_customers", method="POST">
+            <input type="text" name = "flight_num" placeholder = "Flight Number">
+			<input type="submit" value = Confirm>
+		</form>
+		<br><br>
+
+<!-- Add a New Flight -->
+		<span>-Create A New Flight </span><a href="/new_flight">here.</a>
+		<br><br>
+
+<!-- Change Flight Status -->
+		{% if Operator == 1 %}
+		<span>-Change Flight Status </span>
+		<form action="/change_status", method="POST">
+            <input type="text" name = "flight_num" placeholder = "Flight Number">
+			<input type="text" name = "status" placeholder="New Status">
+			<input type="submit" value = Confirm>
+		</form>
+			{% if changed == 1  %}
+			<span> Successfully Changed Flight Status </span><br>
+			{% endif %}
+			{% if changed == 2 %}
+			<span> Failed to change. Invalid Flight Number</span>
+			{% endif %}
+
+		{% endif %}
+
+		{% if Operator == 0 %}
+		<span>-You don't have the permission to change flight status</span>
+		{% endif %}
+		<br><br>
+
+<!-- Add New Plane -->
+		{% if Admin == 1 %}
+		<span>-Add New Airplane </span>
+		<form action="/add_airplane", method="POST">
+			<input type="text" name = "airplane_id" placeholder = "Airplane ID">
+			<input type="number" name = "seats" placeholder="Number of Seats">
+			<input type="submit" value = Confirm>
+		</form>
+
+		{% if newPlane == 1%}
+			<span> Successfully Added New Airplane </span><br>
+			{% endif %}
+			{% if newPlane == 2%}
+			<span> Fail to add. </span><br>
+			{% endif %}
+
+		{% endif %}
+
+		{% if Admin == 0 %}
+		<span>-You don't have the permission to add a new airplane</span>
+		{% endif %}
+		<br><br>
+
+<!-- Add New Plane -->
+		{% if Admin == 1 %}
+		<span>-Add New Airport </span>
+		<form action="/add_airport", method="POST">
+			<input type="text" name = "airport_name" placeholder = "Airport Name">
+			<input type="text" name = "airport_city" placeholder="Airport City">
+			<input type="submit" value = Confirm>
+		</form>
+
+			{% if newPort == 1%}
+			<span> Successfully Added New Airport </span><br>
+			{% endif %}
+			{% if newPort == 2%}
+			<span> Fail to add. </span><br>
+			{% endif %}
+
+		{% endif %}
+
+		{% if Admin == 0 %}
+		<span>-You don't have the permission to add a new airplane</span>
+		{% endif %}
+		<br><br>
+
+<!-- View Top Booking Agents -->
+		<span>-View Top Booking Agents </span><a href="/view_top_ba">here</a><br>
+
+		<br><br>
+
+<!-- View Top Customers -->
+		<span>-View Most Frequent Customers </span><a href="/view_top_c">here</a><br>
+		<br><br>
+<!-- View Specific Customer -->
+		<span>-View All Flights of a Specific Customer  </span>
+		<form action="/view_specific_c", method="POST">
+			<input type="text" name = "customer_email" placeholder = "Enter Customer's Email">
+			<input type="submit" value = Confirm>
+		</form>
+		<br><br>
+
+<!-- View Sales Report -->
+		<span>-View Sales Report </span><a href="/view_report">here</a>
+		<br><br>
+
+<!-- View Revenue Comparisons -->
+		<span>-View Revenue Comparisons </span><a href="compare_rev">here</a>
+		<br><br>
+
+
+<!-- View Top Destinations -->
+		<span>-View Most Popular Destintaions </span><a href="/view_pop_dest">here</a>
+		<br><br><br>
+
+<!-- Grant Permission -->
+		{% if Admin == 1 %}
+		<span>-Grant Permission to Your Employee </span>
+		<form action="/grant_permission", method="POST">
+			<input type="text" name = "staff_username" placeholder = "Enter Staff's Username" required>
+			<input type="radio" name = "type" value = "Admin" required>Admin
+            <input type="radio" name = "type" value = "Operator" required>Operator
+			<input type="submit" value = Confirm>
+		</form>
+			{% if grant == 1  %}
+			<span> Successfully Granted Permission </span><br>
+			{% endif %}
+			{% if grant == 2 %}
+			<span> Failed to Grant Permission. Invalid. </span>
+			{% endif %}
+
+		{% endif %}
+		{% if Admin == 0 %}
+		<span>-You don't have the permission to grant permission to staff.</span>
+		{% endif %}
+		<br><br>
+
+<!-- Grant Permission -->
+		{% if Admin == 1 %}
+		<span>-Cancel Permission of Your Employee </span>
+		<form action="/cancel_permission", method="POST">
+			<input type="text" name = "staff_username" placeholder = "Enter Staff's Username" required>
+			<input type="radio" name = "type" value = "Admin" required>Admin
+			<input type="radio" name = "type" value = "Operator" required>Operator
+			<input type="submit" value = Confirm>
+		</form>
+			{% if cancelled == 1  %}
+			<span> Successfully Cancelled Permission </span><br>
+			{% endif %}
+			{% if cancelled == 2 %}
+			<span> Failed to Cancel Permission. Invalid. </span>
+			{% endif %}
+
+		{% endif %}
+		{% if Admin == 0 %}
+		<span>-You don't have the permission to cancel permission of staff.</span>
+		{% endif %}
+		<br><br>
+
+
+<!-- Add Booking Agent -->
+		{% if Admin == 1 %}
+		<span>-Add Booking Agent for My Airline</span>
+		<form action="/add_ba", method="POST">
+			<input type="text" name = "agent_email" placeholder = "Enter Booking Agent's Email">
+			<input type="submit" value = Confirm>
+		</form>
+			{% if added_ba == 1  %}
+			<span> Successfully Added Booking Agent </span><br>
+			{% endif %}
+			{% if added_ba == 2 %}
+			<span> Failed to Add Booking Agent. Invalid. </span>
+			{% endif %}
+
+		{% endif %}
+		{% if Admin == 0 %}
+		<span>-You don't have the permission to add booking agent.</span>
+		{% endif %}
+		<br><br>
+
+<!-- Rmove Booking Agent -->
+		{% if Admin == 1 %}
+		<span>-Remove Booking Agent from My Airline</span>
+		<form action="/remove_ba", method="POST">
+			<input type="text" name = "agent_email" placeholder = "Enter Booking Agent's Email">
+			<input type="submit" value = Confirm>
+		</form>
+			{% if removed_ba == 1  %}
+			<span> Successfully Removed Booking Agent </span><br>
+			{% endif %}
+			{% if removed_ba == 2 %}
+			<span> Failed to Remove Booking Agent. Invalid. </span>
+			{% endif %}
+
+		{% endif %}
+		{% if Admin == 0 %}
+		<span>-You don't have the permission to remove booking agent.</span>
+		{% endif %}
+		<br><br>
+
+
+
+
+		<br>
+		<br>
+		<br>
+
+<!-- Log out -->
+        <br>
+		<br>
+		<br>
+		<a href="/logout">Log out</a>
+        </div>
+	</body>
+
+
+</html>

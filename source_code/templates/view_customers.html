@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <h1 style = 'text-align:center'> View Customers </h1>
+    <div style = 'text-align:center'>
+
+        {% if error == "No Such Flight" %}
+        <span>{{error}}</span>
+        {% endif%}
+
+        {% if error != "No Such Flight" %}
+		</table>
+         {% if usertype == "staff" %}
+        <br>
+		<p>All customers in {{airline_name}} Airline,  {{flight_num}}:</p>
+		<table border="1" align="center">
+			<th>customer email</th>
+			<th>customer name</th>
+		{% for line in customers %}
+			<tr>
+				<td>{{line[0]}}</td>
+				<td>{{line[1]}}</td>
+			</tr>
+		{% endfor %}
+		</table>
+		{% endif %}
+        {% endif %}
+
+        <br><br><br><br>
+
+        {% if usertype == "customer" %}
+        <a href="/home_c">back to homepage</a>
+        {% endif %}
+
+        {% if usertype == "booking_agent" %}
+        <a href="/home_b">back to homepage</a>
+        {% endif %}
+
+        {% if usertype == "staff" %}
+        <a href="/home_s">back to homepage</a>
+        {% endif %}
+
+    <p></p>
+
+</div>
+
+</body>
+
+
+</html>

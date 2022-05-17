@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <div style = 'text-align:center'>
+    <h2>Search For Upcoming Flights</h2>
+
+        <form action="/search_flights_p", method = "POST">
+            <input type="hidden" name = "usertype" value = "customer">
+            <input type="radio" name = "city_or_airport" value = "city" required>city
+            <input type="radio" name = "city_or_airport" value = "airport" required>airport <br>
+            <input type="text" name = "departure" placeholder = "departure city / airport" required> <br>
+            <input type="text" name = "arrival" placeholder = "arrival city / airport" required> <br>
+            <input type="date" name="date" placeholder="date" required> <br>
+            <input type="submit" value = Search />
+
+            {% if error %}
+            <p class="error"><strong>Error:</strong>{{error}}</p>
+            {% endif %}
+
+        </form>
+
+        <p>Searched Information:</p>
+        <p>{{message}}</p>
+
+        <style type="text/css">
+            table, th, td{
+                border: 1px solid black;
+            }
+        </style>
+
+        <table class="table" border="1" align="center">
+            <th>airline name</th>
+            <th>flight number</th>
+            <th>departure airport</th>
+            <th>departure time</th>
+            <th>arrival airport</th>
+            <th>arrival time</th>
+            <th>price</th>
+            <th>status</th>
+            <th>airplane ID</th>
+        {% for line in flight_info %}
+            <tr>
+                <td>{{line[0]}}</td>
+                <td>{{line[1]}}</td>
+                <td>{{line[2]}}</td>
+                <td>{{line[3]}}</td>
+                <td>{{line[4]}}</td>
+                <td>{{line[5]}}</td>
+                <td>{{line[6]}}</td>
+                <td>{{line[7]}}</td>
+                <td>{{line[8]}}</td>
+                <td>
+                {% if usertype == "booking_agent" and line[0] not in workfor %}
+                {{"Cannot purchase since you don't work for this airline."}}
+                
+                {% else %}
+                <form action="/purchasing", method = "POST">
+                <input type="hidden", name = "airline_name", value = "{{line[0]}}">
+                <input type="hidden", name = "flight_num", value = {{line[1]}}> 
+                <button type = "submit">purchase</button>
+                </form>
+                {% endif %}
+                </td>
+            </tr>
+
+            
+        {% endfor %}
+        </table>
+
+        {{message1}}
+        <br>
+        <br>
+        <br>
+        <br>
+        {% if usertype == "customer" %}
+        <a href="/home_c">Return to your homepage</a>
+        {% endif %}
+        {% if usertype == "booking_agent" %}
+        <a href="/home_b">Return to your homepage</a>
+        {% endif %}
+        
+        {% if usertype1 == "customer" %}
+        <a href="/home_c">Return to your homepage</a>
+        {% endif %}
+        {% if usertype1 == "booking_agent" %}
+        <a href="/home_b">Return to your homepage</a>
+        {% endif %}
+</div>
+    </body>
+</html>
+
